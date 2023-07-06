@@ -8,10 +8,16 @@
 
 </head>
 <body>
-    <div th:each="dietplan : ${dietPlans}">
-        <h1 th:text = "${dietplan.getCena()}">
-
+    <div >
+        <h1 >
+            STO PRAVIS
         </h1>
+    </div>
+
+    <div th:each="plan : ${dietPlans}">
+        <p th:text = "${plan.getCena()}">
+
+        </p>
     </div>
 
 </body>

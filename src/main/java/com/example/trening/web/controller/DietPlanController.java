@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/DietPlans")
 public class DietPlanController {
 
     private final DietPlanService dietPlanService;
