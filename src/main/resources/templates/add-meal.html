@@ -7,7 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 </head>
-<body >
+
+<body>
     <div>
         <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -39,47 +40,41 @@
 
     </div>
 
-    <div style="margin-top: 20px; margin-bottom: 20px">
-        <a href="/DietPlans/add-plan-page" style="color: #7fee7f; font-size: 24px; font-weight: bold; text-decoration: none; margin-top: 30px; margin-left: 50px">
-            Add meal plan
-        </a>
+    <div>
+        <form action="/DietPlans/add-plan" method="POST">
+            <div class="mb-3">
+                <label for="type" class="form-label">Meal plan type</label>
+                <input class="form-control" id="type" name="type">
+            </div>
+            <div class="mb-3">
+                <label for="created_by" class="form-label">Created by</label>
+                <input class="form-control" id="created_by" name="created_by">
+            </div>
+            <div class="mb-3">
+                <label for="rate" class="form-label">Rate</label>
+                <input class="form-control" id="rate" name="rate">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input class="form-control" id="price" name="price">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" ></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="content" ></textarea>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Type</th>
-            <th scope="col">Created by</th>
-            <th scope="col">Rate</th>
-            <th scope="col">Price</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="plan : ${dietPlans}" >
-            <th scope="row" th:text = "${plan.getType()}" ></th>
-            <td th:text = "${plan.getCreated_by().name}"></td>
-            <td th:text = "${plan.getRate()}"></td>
-            <td th:text = "${plan.getPrice()} + '$'"></td>
-            <td>
-                <th:block>
-                    <form th:action="@{'/DietPlans/show-more/{id}' (id=${plan.getId()})}">
-                        <button type="submit"
-                                class="btn btn-primary">
-                            <i class="fa fa-trash">More</i>
-                        </button>
-                    </form>
-                </th:block>
-            </td>
 
-        </tr>
-        </tbody>
-    </table>
-
-
-
-
-    <div class="footer">
+    <div class="footer" style="margin-top: 10px">
         <div class="card">
             <div class="card-header"  style="height: 70px; background-color: #CBCBCB ">
                 <svg style="margin-left: 100px; margin-top: 0px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
@@ -89,7 +84,6 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
 
@@ -121,28 +115,8 @@
         color: #333;
         padding: 5px 10px;
     }
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        color: white;
-    }
+
 
 
 
 </style>
-
-<script>
-    window.addEventListener('scroll', function() {
-        var navbar = document.getElementById('navbar');
-        if (window.pageYOffset > 0) {
-            navbar.style.top = '0';
-        } else {
-            navbar.style.top = '0px';
-        }
-    });
-</script>
-
-
-
