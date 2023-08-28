@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+
+    <div>
+        <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="https://www.nicepng.com/png/detail/107-1078957_fitness-gym-logo-png.png" style="width: 110px; height: 70px; margin-left: 60px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px; font-size: 20px">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/DietPlans">Meal Plan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/Trainers">Personal Trainer</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav" style="margin-right: 5%">
+                        <li class="nav-item">
+                            <form action="/login"><button class="btn btn-primary">Login</button></form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div style="height: 100px; width: 100px; background-color: red" >
+
+    </div>
+
+
+    <div style=" text-align: right; margin-right: 10%">
+
+        <h2>
+            Are you a trainer?
+        </h2>
+
+        <h4>
+            <a href="/TrainerRegister">Register as a trainer.</a>
+        </h4>
+    </div>
+
+    <form method="post" action="/register/user_register">
+
+        <div class="container" style="margin-top: 30px">
+
+            <div class="text">
+                <div>
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input required class="form-control" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input required class="form-control" id="name" name="name" placeholder="First Name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input required class="form-control" id="surname" name="surname" placeholder="Last Name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Age</label>
+                        <input required class="form-control" id="age" name="age" style="width: 10%" placeholder="Age">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Height in CM</label>
+                        <input required class="form-control" id="height" name="height" style="width: 12%" placeholder="Height">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Weight in KG</label>
+                        <input required class="form-control" id="weight" name="weight" style="width: 12%" placeholder="Weight">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Password</label>
+                        <input required class="form-control" type="password" id="password" name="password" placeholder="Password">
+                    </div>
+                    <input type="hidden" class="form-control" id="role" name="role" value="ROLE_CLIENT">
+                </div>
+            </div>
+            <div class="image">
+                <img style="height: 70%; width: 70%" src="https://png.pngtree.com/png-clipart/20221023/original/pngtree-woman-on-cardio-gym-workout-with-fitness-trainer-isolated-on-white-png-image_8715525.png" alt="Image Description">
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; margin-bottom: 20px">
+            <h1 style="text-align: center">
+                Please enter your credit card information
+            </h1>
+        </div>
+
+        <div class="container">
+            <div class="image" style="text-align: center">
+                <img style="height: 80%; width: 80%" src="https://www.thebalancemoney.com/thmb/At8Phg5iioy6iKbid9EeDAKJFDc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/credit-card-664122404-5aa02284c673350037bce86d.jpg" alt="Image Description">
+            </div>
+            <div class="text">
+                <div>
+                    <div class="mb-3">
+                        <label class="form-label">Card Number</label>
+                        <div>
+                            <input required class="form-control" id="card_number1" name="card_number1" style="display: inline-block; width: 10%;"> -
+                            <input required class="form-control" id="card_number2" name="card_number2" style="display: inline-block; width: 10%;"> -
+                            <input required class="form-control" id="card_number3" name="card_number3" style="display: inline-block; width: 10%;"> -
+                            <input required class="form-control" id="card_number4" name="card_number4" style="display: inline-block; width: 10%;">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Expiration date</label>
+                        <div>
+                            <input required class="form-control" id="expiration_date1" name="expiration_date1" style="width: 9%; display: inline-block;"> /
+                            <input required class="form-control" id="expiration_date2" name="expiration_date2" style="width: 9%; display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CVV</label>
+                        <input required class="form-control" id="CVV" name="CVV" style="width: 10%">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Bank name</label>
+                        <input required class="form-control" id="bank_name" name="bank_name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="footer" style="margin-top: 50px">
+        <div class="card">
+            <div class="card-header"  style="height: 70px; background-color: #CBCBCB ">
+                <svg style="margin-left: 100px; margin-top: 0px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512Z"/>
+                </svg>
+                <p style="display: inline-block; margin-left: 20px; font-size: 18px; margin-top: 10px;">2023 Online Personal Coach</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<style>
+    #navbar {
+        background-color: #f5f5f5;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        transition: top 0.3s ease-in-out;
+    }
+
+    #navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #navbar ul li {
+        display: inline-block;
+    }
+
+    #navbar ul li a {
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+    }
+    .footer {
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+    }
+    .text {
+        flex: 1;
+    }
+    .image {
+        flex: 1;
+        text-align: right;
+    }
+</style>
