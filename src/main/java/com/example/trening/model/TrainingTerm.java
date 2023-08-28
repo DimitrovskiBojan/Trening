@@ -22,6 +22,8 @@ public class TrainingTerm {
 
     private Long price;
 
+    private boolean taken = false;
+
 
     @ManyToOne
     private Trainer trainer;

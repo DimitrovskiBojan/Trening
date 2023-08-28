@@ -18,7 +18,20 @@ public interface TrainingTermService {
 
     Optional<TrainingTerm> edit(Long id, String datum, String start, String end_time, Long price, Long trainer);
 
+    List<TrainingTerm> findAllByTrainers(Long id);
+
+    List<TrainingTerm> findAllByCreated_by(Trainer trainer);
+
+    List<TrainingTerm> findAllByNotTaken(Trainer trainer);
+    void addTermToClient(Long trainerId, Long trainingTermId);
+    void removeTermFromClient(Long trainerId, Long termId);
+
+    List<TrainingTerm> findAllTermsForTrainer(Long trainerId);
 
     void deleteById(Long id);
+
+    void take(Long id);
+    void untake(Long id);
+
 
 }

@@ -2,6 +2,8 @@ package com.example.trening.service.impl;
 
 import com.example.trening.model.DietPlan;
 import com.example.trening.model.Trainer;
+import com.example.trening.model.TrainingTerm;
+import com.example.trening.model.exceptions.DietPlanAlreadyBought;
 import com.example.trening.model.exceptions.DietPlanNotFoundException;
 import com.example.trening.model.exceptions.TrainerNotFoundException;
 import com.example.trening.repository.DietPlanRepository;
@@ -63,6 +65,78 @@ public class DietPlanServiceImpl implements DietPlanService {
         this.dietPlanRepository.save(dietPlan);
 
         return Optional.of(dietPlan);
+    }
+
+    @Override
+    public List<DietPlan> findAllByCreated_by(Trainer trainer) {
+        return this.dietPlanRepository.findAllByCreated_by(trainer);
+    }
+
+    @Override
+    public void addPlanToClient(Long trainerId, Long dietId) {
+        Trainer trainer = this.trainerRepository.findById(trainerId).orElseThrow(()->new TrainerNotFoundException(trainerId));
+
+        DietPlan dietPlan = this.dietPlanRepository.findById(dietId).orElseThrow(() -> new DietPlanNotFoundException(dietId));
+
+        if(trainer.getPlans().contains(dietPlan)){
+            throw new DietPlanAlreadyBought(dietId);
+        }
+        else {
+            trainer.getPlans().add(dietPlan);
+
+            this.trainerRepository.save(trainer);
+        }
+
+
+    }
+
+    @Override
+    public List<DietPlan> getAllPlansForTrainer(Long trainerId) {
+
+        Trainer trainer = this.trainerRepository.findById(trainerId).orElseThrow(()->new TrainerNotFoundException(trainerId));
+
+        return trainer.getPlans();
+    }
+
+    @Override
+    public void removePlanFromClient(Long trainerId, Long planId) {
+        Trainer trainer = this.trainerRepository.findById(trainerId).orElseThrow(()->new TrainerNotFoundException(trainerId));
+
+        DietPlan dietPlan = this.dietPlanRepository.findById(planId).orElseThrow(() -> new DietPlanNotFoundException(planId));
+
+        trainer.getPlans().remove(dietPlan);
+
+        this.trainerRepository.save(trainer);
+    }
+
+
+    @Override
+    public void like(Long planId) {
+        DietPlan dietPlan = this.dietPlanRepository.findById(planId).orElseThrow(()-> new DietPlanNotFoundException(planId));
+
+        long likes = dietPlan.getRate();
+
+        likes++;
+
+        dietPlan.setRate(likes);
+
+        this.dietPlanRepository.save(dietPlan);
+
+    }
+
+    @Override
+    public void unlike(Long planId) {
+
+        DietPlan dietPlan = this.dietPlanRepository.findById(planId).orElseThrow(()-> new DietPlanNotFoundException(planId));
+
+        long likes = dietPlan.getRate();
+
+        likes--;
+
+        dietPlan.setRate(likes);
+
+        this.dietPlanRepository.save(dietPlan);
+
     }
 
     @Override

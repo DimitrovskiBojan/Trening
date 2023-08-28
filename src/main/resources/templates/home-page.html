@@ -19,28 +19,63 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px; font-size: 20px">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/DietPlans">Meal Plan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Personal Trainer</a>
+            <a class="nav-link active" aria-current="page" href="/Trainers">Personal Trainer</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <ul>
+          <th:block th:if="${user.equals('[ROLE_ANONYMOUS]')}">
+            <li class="nav-item">
+              <form action="/login"><button class="btn btn-primary">Login</button></form>
+            </li>
+          </th:block>
+        </ul>
+        <div id="hover-div" style="margin-right: 3%;">
+          <ul id="text" style="font-size: 17px">
+            <th:block th:if="${!user.equals('[ROLE_ANONYMOUS]')}">
+              <a  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img th:if="${user.equals('[ROLE_TRAINER]')}" id="image1" th:src="${loggedUser.getImage()}" style="width: 90px; height: 60px; margin-left: 60px; border-radius: 50%;">
+              </a>
+
+              <li class="nav-item dropdown">
+                <a th:text="${loggedUser.getName()}+' '+${loggedUser.getSurname()}"
+                   class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a th:if="${user.equals('[ROLE_TRAINER]')}" class="dropdown-item" href="/DietPlans/my-diet-plans-trainer">My Diet Plans</a>
+                    <a th:if="${user.equals('[ROLE_CLIENT]')}" class="dropdown-item" href="/DietPlans/my-diet-plans-client">My Diet Plans</a>
+                  </li>
+                  <li>
+                    <a th:if="${user.equals('[ROLE_TRAINER]')}" class="dropdown-item" href="/TrainingTerm/my-training-terms-trainer">My Training Terms</a>
+                    <a th:if="${user.equals('[ROLE_CLIENT]')}" class="dropdown-item" href="/TrainingTerm/my-training-terms-client">My Training Terms</a>
+                  </li>
+
+                  <li><a style="color: #e76767" class="dropdown-item" href="/logout"><b>Logout</b></a></li>
+                </ul>
+              </li>
+
+
+            </th:block>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
 </div>
 
 <div>
-  <div style="background-repeat: no-repeat; background-size: 105%; height: 500px; width: 600px; background-image: url('https://www.ladiesgymderby.com/wp-content/uploads/2019/11/personal-trainer.png'); display: inline-block; margin-left: 150px; margin-top: 150px">
+  <a href="/Trainers">
+    <div style="background-repeat: no-repeat; background-size: 105%; height: 500px; width: 600px; background-image: url('https://www.ladiesgymderby.com/wp-content/uploads/2019/11/personal-trainer.png'); display: inline-block; margin-left: 150px; margin-top: 150px">
 
-  </div>
+    </div>
+  </a>
   <a href="/DietPlans">
     <div style="background-repeat: no-repeat; height: 500px; width: 600px; background-size: 99% ; background-image: url('https://kiiky.com/wealth/wp-content/uploads/sites/4/2020/10/mealplanning.jpg'); display: inline-block; margin-left: 50px; margin-top: 150px">
     </div>
@@ -72,13 +107,13 @@
     top: 0;
     width: 100%;
     transition: top 0.3s ease-in-out;
+    z-index: 1;
   }
 
   #navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
     justify-content: space-around;
   }
 
@@ -92,6 +127,7 @@
     padding: 5px 10px;
   }
 
+
 </style>
 
 <script>
@@ -103,4 +139,32 @@
       navbar.style.top = '0px';
     }
   });
+  const hoverDiv = document.getElementById('hover-div');
+  const image = document.getElementById("image1");
+  const text = document.getElementById("text")
+
+  hoverDiv.addEventListener('mouseover', () => {
+    // Your action here
+    image.style.width = "100px";
+    image.style.height = "70px";
+    text.style.fontSize = "18px";
+  });
+
+  hoverDiv.addEventListener('mouseout', () => {
+    // Revert the action when the mouse leaves the div
+    image.style.width = "90px";
+    image.style.height = "60px";
+    text.style.fontSize = "17px"; });
+
+  hoverDiv.addEventListener('mouseover', () => {
+    // Your action here
+
+    text.style.fontSize = "18px";
+  });
+
+  hoverDiv.addEventListener('mouseout', () => {
+    // Revert the action when the mouse leaves the div
+
+    text.style.fontSize = "17px"; });
+
 </script>

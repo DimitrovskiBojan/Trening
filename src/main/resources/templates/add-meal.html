@@ -18,19 +18,52 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px; font-size: 20px">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/DietPlans">Meal Plan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Personal Trainer</a>
+                            <a class="nav-link active" aria-current="page" href="/Trainers">Personal Trainer</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <ul>
+                        <th:block th:if="${user.equals('[ROLE_ANONYMOUS]')}">
+                            <li class="nav-item">
+                                <form action="/login"><button class="btn btn-primary">Login</button></form>
+                            </li>
+                        </th:block>
+                    </ul>
+                    <div id="hover-div" style="margin-right: 3%;">
+                        <ul id="text" style="font-size: 17px">
+                            <th:block th:if="${!user.equals('[ROLE_ANONYMOUS]')}">
+                                <a  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img th:if="${user.equals('[ROLE_TRAINER]')}" id="image1" th:src="${loggedUser.getImage()}" style="width: 90px; height: 60px; margin-left: 60px; border-radius: 50%;">
+                                </a>
+
+                                <li class="nav-item dropdown">
+                                    <a th:text="${loggedUser.getName()}+' '+${loggedUser.getSurname()}"
+                                       class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a th:if="${user.equals('[ROLE_TRAINER]')}" class="dropdown-item" href="/DietPlans/my-diet-plans-trainer">My Diet Plans</a>
+                                            <a th:if="${user.equals('[ROLE_CLIENT]')}" class="dropdown-item" href="/DietPlans/my-diet-plans-client">My Diet Plans</a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${user.equals('[ROLE_TRAINER]')}" class="dropdown-item" href="/TrainingTerm/my-training-terms-trainer">My Training Terms</a>
+                                            <a th:if="${user.equals('[ROLE_CLIENT]')}" class="dropdown-item" href="/TrainingTerm/my-training-terms-client">My Training Terms</a>
+                                        </li>
+
+                                        <li><a style="color: #e76767" class="dropdown-item" href="/logout"><b>Logout</b></a></li>
+                                    </ul>
+                                </li>
+
+
+                            </th:block>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -40,31 +73,24 @@
 
     </div>
 
-    <div>
+    <div class="container">
+        <h1 style="margin-top: 20px; margin-bottom: 20px;">New diet plan</h1>
         <form action="/DietPlans/add-plan" method="POST">
             <div class="mb-3">
                 <label for="type" class="form-label">Meal plan type</label>
-                <input class="form-control" id="type" name="type">
-            </div>
-            <div class="mb-3">
-                <label for="created_by" class="form-label">Created by</label>
-                <input class="form-control" id="created_by" name="created_by">
-            </div>
-            <div class="mb-3">
-                <label for="rate" class="form-label">Rate</label>
-                <input class="form-control" id="rate" name="rate">
+                <input required class="form-control" id="type" name="type">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input class="form-control" id="price" name="price">
+                <input required class="form-control" id="price" name="price">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" ></textarea>
+                <input required class="form-control" id="description" name="description" >
             </div>
             <div class="mb-3">
-                <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" id="content" name="content" ></textarea>
+
+                <input type="hidden" class="form-control" id="content" name="content" >
             </div>
 
 
@@ -74,7 +100,7 @@
     </div>
 
 
-    <div class="footer" style="margin-top: 10px">
+    <div id="footer" style="margin-top: 25px">
         <div class="card">
             <div class="card-header"  style="height: 70px; background-color: #CBCBCB ">
                 <svg style="margin-left: 100px; margin-top: 0px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
@@ -96,13 +122,13 @@
         top: 0;
         width: 100%;
         transition: top 0.3s ease-in-out;
+        z-index: 1;
     }
 
     #navbar ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        display: flex;
         justify-content: space-around;
     }
 
@@ -115,8 +141,53 @@
         color: #333;
         padding: 5px 10px;
     }
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+    }
 
 
 
 
 </style>
+
+<script>
+    window.addEventListener('scroll', function() {
+        var navbar = document.getElementById('navbar');
+        if (window.pageYOffset > 0) {
+            navbar.style.top = '0';
+        } else {
+            navbar.style.top = '0px';
+        }
+    });
+    const hoverDiv = document.getElementById('hover-div');
+    const image = document.getElementById("image1");
+    const text = document.getElementById("text")
+
+    hoverDiv.addEventListener('mouseover', () => {
+        // Your action here
+        image.style.width = "100px";
+        image.style.height = "70px";
+        text.style.fontSize = "18px";
+    });
+
+    hoverDiv.addEventListener('mouseout', () => {
+        // Revert the action when the mouse leaves the div
+        image.style.width = "90px";
+        image.style.height = "60px";
+        text.style.fontSize = "17px"; });
+
+    hoverDiv.addEventListener('mouseover', () => {
+        // Your action here
+
+        text.style.fontSize = "18px";
+    });
+
+    hoverDiv.addEventListener('mouseout', () => {
+        // Revert the action when the mouse leaves the div
+
+        text.style.fontSize = "17px"; });
+</script>
